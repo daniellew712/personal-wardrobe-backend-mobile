@@ -47,8 +47,6 @@ coverage/
 ehthumbs.db
 Thumbs.db
 
-/src/generated/prisma
-
 # Seed files
 prisma/seed/
 prisma/seed.ts

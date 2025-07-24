@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id // This will be the Firebase UID
+  email         String         @unique
+  name          String?
+  photoURL      String? // Firebase profile photo
+  provider      String? // Authentication provider (google, email, etc.)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  clothingItems ClothingItem[]
+  outfits       Outfit[]
+
+  @@map("users")
+}
+
+//map the model to existing database table
+
+model Category {
+  id            String         @id @default(cuid())
+  name          String         @unique
+  description   String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  clothingItems ClothingItem[]
+
+  @@map("categories")
+}
+
+model ClothingItem {
+  id           String       @id @default(cuid())
+  name         String
+  description  String?
+  brand        String?
+  color        String?
+  size         String?
+  price        Float?
+  purchaseDate DateTime?
+  imageUrl     String?
+  notes        String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  userId       String
+  categoryId   String
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category     Category     @relation(fields: [categoryId], references: [id])
+  tags         Tag[]        @relation("ClothingItemTags")
+  outfitItems  OutfitItem[]
+
+  @@map("clothing_items")
+}
+
+model Tag {
+  id            String         @id @default(cuid())
+  name          String         @unique
+  color         String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  clothingItems ClothingItem[] @relation("ClothingItemTags")
+
+  @@map("tags")
+}
+
+model Outfit {
+  id          String       @id @default(cuid())
+  name        String
+  description String?
+  occasion    String?
+  season      String?
+  imageUrl    String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  userId      String
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  outfitItems OutfitItem[]
+
+  @@map("outfits")
+}
+
+model OutfitItem {
+  id             String       @id @default(cuid())
+  outfitId       String
+  clothingItemId String
+  outfit         Outfit       @relation(fields: [outfitId], references: [id], onDelete: Cascade)
+  clothingItem   ClothingItem @relation(fields: [clothingItemId], references: [id], onDelete: Cascade)
+
+  @@unique([outfitId, clothingItemId])
+  @@map("outfit_items")
+}
