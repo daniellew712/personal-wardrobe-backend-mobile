@@ -58,10 +58,8 @@ API_TESTS.md
 
 # Development middleware (auth mocks)
 src/middleware/auth-dev.ts
-src/middleware/
 src/services/userSync.ts
 
 # Additional development files
-src/middleware/auth.ts
 src/routes/suggestions.ts
 src/routes/utilities.ts

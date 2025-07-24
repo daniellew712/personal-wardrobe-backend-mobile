@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { authenticateFirebaseToken } from '../middleware/auth-dev';
+import { authenticateFirebaseToken } from '../middleware/auth';
 
 const router = express.Router();
 

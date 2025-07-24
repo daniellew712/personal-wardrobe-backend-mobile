@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import prisma from '../services/database';
-import { authenticateFirebaseToken } from '../middleware/auth-dev'; // Using dev auth for now
+import { authenticateFirebaseToken } from '../middleware/auth'; // Using proper auth middleware
 
 const router = express.Router();
 
