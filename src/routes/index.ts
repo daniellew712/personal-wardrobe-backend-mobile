@@ -2,13 +2,9 @@ import express, { Request, Response } from 'express';
 
 const router = express.Router();
 
-/* GET home page. */
-// router.get('/', function(req, res, next) {
-//   res.render('index', { title: 'Express' });
-// });
-
+//home page
 router.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!!!!!!');
+  res.send('Welcome To Waves!!! Your Personal Wardrobe');
 });
 
 export default router;
