@@ -7,6 +7,7 @@ dist/
 # TypeScript
 *.tsbuildinfo
 
+
 # Logs
 logs
 *.log
@@ -46,4 +47,20 @@ coverage/
 ehthumbs.db
 Thumbs.db
 
-/src/generated/prisma
+# Seed files
+prisma/seed/
+prisma/seed.ts
+
+# Scripts folder (development utilities)
+scripts/
+
+# API Testing files
+API_TESTS.md
+
+# Development middleware (auth mocks)
+src/middleware/auth-dev.ts
+src/services/userSync.ts
+
+# Additional development files
+src/routes/suggestions.ts
+src/routes/utilities.ts
