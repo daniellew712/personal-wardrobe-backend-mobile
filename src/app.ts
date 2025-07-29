@@ -10,6 +10,7 @@ import './types/auth'; // Import auth types
 import indexRouter from './routes/index';
 import usersRouter from './routes/users';
 import clothingRouter from './routes/clothing';
+import chatRouter from './routes/chat';
 
 const app = express();
 
@@ -32,6 +33,8 @@ app.use(cookieParser());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/clothing', clothingRouter);
+// add ai api route
+app.use('/chat', chatRouter);
 
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction) => {
