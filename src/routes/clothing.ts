@@ -18,7 +18,7 @@ router.get('/', async (req: Request, res: Response) => {
     }
 
     // Extract query parameters for filtering
-    const { category, tags, color, brand, size } = req.query;
+    const { category, tags, color, brand, size, favorite } = req.query;
 
     // Build where clause based on query parameters
     const whereClause: any = {
@@ -28,6 +28,12 @@ router.get('/', async (req: Request, res: Response) => {
     // Filter by category
     if (category) {
       whereClause.category = category as string;
+    }
+
+    // Filter by favorite
+    if (favorite !== undefined) {
+      if (favorite === 'true') whereClause.favorite = true;
+      else if (favorite === 'false') whereClause.favorite = false;
     }
 
     // Filter by tags (can match any of the provided tags)
@@ -99,7 +105,8 @@ router.post('/', async (req: Request, res: Response) => {
       purchaseDate,
       imageUrl,
       category,
-      tags = []
+      tags = [],
+      favorite = false
     } = req.body;
 
     const userId = req.user?.uid;
@@ -142,6 +149,7 @@ router.post('/', async (req: Request, res: Response) => {
         imageUrl,
         category,
         tags,
+        favorite,
         userId
       },
       include: {
@@ -171,7 +179,8 @@ router.put('/:id', async (req: Request, res: Response) => {
       purchaseDate,
       imageUrl,
       category,
-      tags = []
+      tags = [],
+      favorite
     } = req.body;
 
     // Check if clothing item exists
@@ -195,7 +204,8 @@ router.put('/:id', async (req: Request, res: Response) => {
         purchaseDate: purchaseDate ? new Date(purchaseDate) : null,
         imageUrl,
         category,
-        tags
+        tags,
+        ...(favorite !== undefined ? { favorite } : {})
       },
       include: {
         user: {
