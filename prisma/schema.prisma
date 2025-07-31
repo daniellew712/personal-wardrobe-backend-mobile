@@ -16,7 +16,6 @@ model User {
   createdAt    DateTime        @default(now())
   updatedAt    DateTime        @updatedAt
   clothingItems ClothingItem[]
-  outfits      Outfit[]
 
   @@map("users")
 }
@@ -38,37 +37,9 @@ model ClothingItem {
   updatedAt    DateTime     @updatedAt
   userId       String
   user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  outfitItems  OutfitItem[]
 
   @@map("clothing_items")
 }
 
-
-model Outfit {
-  id          String       @id @default(cuid())
-  name        String
-  description String?
-  occasion    String?
-  season      String?
-  imageUrl    String?
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  userId      String
-  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  outfitItems OutfitItem[]
-
-  @@map("outfits")
-}
-
-model OutfitItem {
-  id             String       @id @default(cuid())
-  outfitId       String
-  clothingItemId String
-  outfit         Outfit       @relation(fields: [outfitId], references: [id], onDelete: Cascade)
-  clothingItem   ClothingItem @relation(fields: [clothingItemId], references: [id], onDelete: Cascade)
-
-  @@unique([outfitId, clothingItemId])
-  @@map("outfit_items")
-}
 
 
