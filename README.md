@@ -17,7 +17,8 @@ A Node.js with Express backend for a personal wardrobe management app with AI-po
 - Firebase project with service account credentials
 - Google Gemini API key
 
-
+### Getting Started
+- Deployed backend: https://personal-wardrobe-backend.onrender.com
 ### Available Scripts
 
 - `npm run dev` - Start development server with nodemon
@@ -83,7 +84,6 @@ A Node.js with Express backend for a personal wardrobe management app with AI-po
 ├── tsconfig.json
 └── nodemon.json
 ```
-
 
 
 
