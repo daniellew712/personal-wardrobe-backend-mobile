@@ -14,7 +14,7 @@ export async function authenticateFirebaseToken(
     return;
   }
 
-  const token = authHeader.substring(7); // Remove 'Bearer ' prefix
+  const token = authHeader.substring(7); // Remove 'Bearer ' prefix or authHeader.split('Bearer ')[1]
 
   try {
     const decodedToken = await admin.auth().verifyIdToken(token);

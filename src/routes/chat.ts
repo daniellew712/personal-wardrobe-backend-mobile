@@ -6,6 +6,7 @@ const router = express.Router();
 
 // Initialize Gemini AI
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+// it will show error if the api key is not defined without !
 const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
 // Apply authentication
